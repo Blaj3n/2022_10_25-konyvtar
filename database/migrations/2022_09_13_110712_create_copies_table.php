@@ -18,10 +18,10 @@ return new class extends Migration
             $table->id('copy_id');
             //létrehozza a mezőt és össze is köti a megf. tábla megf. mezőjével
             $table->foreignId('book_id')->references('book_id')->on('books');
-            $table->tinyint('hardcovered')->default(0);
+            $table->tinyInteger('hardcovered')->default(0);
             $table->year('publication',4)->default(2000);
             //alapból a könyvtárban (0), ki van adva: 1, selejtre ítélve: 2
-            $table->integer('status',11)->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
 

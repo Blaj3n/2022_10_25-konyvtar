@@ -17,9 +17,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->varchar('name',255);
-            $table->varchar('email',255)->unique();
-            $table->varchar('password',255);
+            $table->string('name',255);
+            $table->string('email',255)->unique();
+            $table->string('password',255);
             //0: admin, 1: felhasználó
             $table->boolean('permission')->default(1);
             $table->timestamp('email_verified_at')->nullable();
