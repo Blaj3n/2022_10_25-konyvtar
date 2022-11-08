@@ -24,6 +24,23 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['admin'])->group(function () {
+    Route::apiResource('/copies', CopyController::class);
+    Route::apiResource('/books', BookController::class);
+    Route::apiResource('/users', UserController::class);
+
+    //view
+    Route::get('/book/new', [BookController::class, 'newView']);
+    Route::get('/book/edit/{id}', [BookController::class, 'editView']);
+    Route::get('/book/list', [BookController::class, 'listView']);
+    Route::get('/user/new', [UserController::class, 'newView']);
+    Route::get('/user/edit/{id}', [UserController::class, 'editView']);
+    Route::get('/user/list', [UserController::class, 'listView']);
+
+    Route::get('/api/books/{id}', [BookController::class, 'show']);
+    Route::get('/api/lendings', [LendingController::class, 'index']);
+});
+
 Route::middleware(['auth.basic'])->group(function () {
     Route::apiResource('/api/copies', CopyController::class);
     Route::apiResource('/api/books', BookController::class);
@@ -33,6 +50,11 @@ Route::middleware(['auth.basic'])->group(function () {
     Route::get('/copy/new', [CopyController::class, 'newView']);
     Route::get('/copy/edit/{id}', [CopyController::class, 'editView']);
     Route::get('/copy/list', [CopyController::class, 'listView']);
+
+    Route::patch('/api/users/password/{id}', [CopyController::class, 'updatePassword']);
+
+    Route::get('/book/list', [BookController::class, 'listView']);
+    Route::get('/api/book_copies/{id}', [BookController::class, 'copies_id']);
 });
 
 require __DIR__.'/auth.php';
